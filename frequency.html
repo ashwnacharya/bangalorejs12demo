@@ -1,0 +1,127 @@
+<html>
+<head>
+    <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        body {
+            background-color:white;
+        }
+        table {
+            width: 100%;
+            font: 'Pacifico', Helvetica, sans-serif;
+            color: black;
+            font-weight:bolder;
+            font-size:x-large;
+        }
+		
+        td {
+            height: 65px;
+            width: 200px;
+            opacity: 0.3;
+        }
+    </style>
+    <script src="Scripts/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            for (var i = 0; i < 10; i++) {
+                for (var j = 0; j < 5; j++) {
+
+                    var worker = new Worker("Scripts/BlinkWorker.js");
+                    worker.addEventListener('message', function (event) {
+                        blink(event.data.row, event.data.column);
+                    });
+
+                    var cell = document.getElementById("frequencyTable").rows[i].cells[j];
+                    var $cell = $(cell);
+                    var data = {};
+                    data.row = i;
+                    data.column = j;
+                    data.frequency = $cell.attr("data-rate");
+                    worker.postMessage(data);
+                }
+            }
+        });
+
+        var blink = function (row, column) {
+
+            var cell = document.getElementById("frequencyTable").rows[row].cells[column];
+            var $cell = $(cell);
+            $cell.fadeTo(100, 1.0).fadeTo(100, 0.3);
+        }
+	</script>
+</head>
+<body>
+    <table id="frequencyTable">
+        <tr>
+            <td data-rate="860">Heart beat</td>
+            <td data-rate="240">One Birth</td>
+            <td data-rate="558">One Death</td>
+            <td data-rate="670">Someone edits Wikipedia</td>
+            <td data-rate="2990">Someone buys a vibrator</td>
+        </tr>
+        <tr>
+            <td data-rate="1890">China builds a car</td>
+            <td data-rate="4010">Japan builds a car</td>
+            <td data-rate="5800">Germany builds a car</td>
+            <td data-rate="6950">The US builds a car</td>
+            <td data-rate="1030">Someone else builds a car</td>
+        </tr>
+        <tr>
+            <td data-rate="5530">A european union resident has their first kiss</td>
+            <td data-rate="23000">A US fire department puts out the fire</td>
+            <td data-rate="180000">Someone has a hole in one</td>
+            <td data-rate="940">My turn signal blinks</td>
+            <td data-rate="900">The turn signal of the car in front of me blinks</td>
+        </tr>
+        <tr>
+            <td data-rate="2430">Earth Quake (Magnitude 1)</td>
+            <td data-rate="2426">Earth Quake (Magnitude 2)</td>
+            <td data-rate="242600">Earth Quake (Magnitude 3)</td>
+            <td data-rate="2426000">Earth Quake (Magnitude 4)</td>
+            <td data-rate="10060">A member of the UK parliament flushes a toilet</td>
+        </tr>
+        <tr>
+            <td data-rate="930">An airline flight takes off</td>
+            <td data-rate="42050">Someone buys "To kil a mocking bird"</td>
+            <td data-rate="1820">Someone's pet cat kills a mocking bird</td>
+            <td data-rate="1080">Someone in Phoenix buys new shoes</td>
+            <td data-rate="2050">Someone in Phoenix puts on a condom</td>
+        </tr>
+        <tr>
+            <td data-rate="2430">Someone locks their keys in their car</td>
+            <td data-rate="7790">A sagittarius named Amelia drinks a soda</td>
+            <td data-rate="7010">A dog bites someone in the US</td>
+            <td data-rate="24930">Someone steals a bicycle</td>
+            <td data-rate="2690">A bald eagle catches a fish</td>
+        </tr>
+        <tr>
+            <td data-rate="1270">50,000 plastic bottles are produced</td>
+            <td data-rate="4640">50,000 plastic bottles are recycled</td>
+            <td data-rate="1150">A bright meteor is visible somewhere</td>
+            <td data-rate="5640000">Old faithful erupts</td>
+            <td data-rate="830">A fishing boat catches a shark</td>
+        </tr>
+        <tr>
+            <td data-rate="18990">Someone in the US is diagnosed with cancer</td>
+            <td data-rate="54340">Someone in the US dies from cancer</td>
+            <td data-rate="15600">Someone adopts a dog from the shelter</td>
+            <td data-rate="21300">Someone adopts a cat from the shelter</td>
+            <td data-rate="750">Someone gets married</td>
+        </tr>
+        <tr>
+            <td data-rate="640">Someone registers a domain</td>
+            <td data-rate="6220">Someone in the US buys a house</td>
+            <td data-rate="2060">Someone in the US gets a tattoo</td>
+            <td data-rate="1400">The star PSR J1748-2446AD rotates 1000 times</td>
+            <td data-rate="4320">Someone lies about their age to sign up for facebook</td>
+        </tr>
+        <tr>
+            <td data-rate="930">Someone breaks an iphone screen</td>
+            <td data-rate="1230">A little league player strikes out</td>
+            <td data-rate="1380">Someone has sex in north dakota</td>
+            <td data-rate="4730">Justin beiber gains a follower on twitter</td>
+            <td data-rate="1270">Someone in Denver orders a Pizza</td>
+        </tr>
+    </table>
+</body>
+</html>
